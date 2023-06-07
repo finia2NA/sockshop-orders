@@ -1,3 +1,5 @@
+// No recommendations
+
 package works.weave.socks.orders.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;

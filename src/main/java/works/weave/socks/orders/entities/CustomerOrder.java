@@ -1,3 +1,7 @@
+/*
+ * GPT4 suggestions: null safety, immutable objects
+ */
+
 package works.weave.socks.orders.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;

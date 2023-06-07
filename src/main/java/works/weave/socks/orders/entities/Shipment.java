@@ -1,3 +1,5 @@
+// Recommended actions: Null checks, defensive copies, immutability, fail fast when id or name is null
+
 package works.weave.socks.orders.entities;
 
 import java.util.UUID;

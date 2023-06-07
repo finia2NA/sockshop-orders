@@ -1,3 +1,5 @@
+// not much that can be done here
+
 package works.weave.socks.orders.values;
 
 public class PaymentResponse {

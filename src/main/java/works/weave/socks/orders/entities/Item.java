@@ -1,3 +1,5 @@
+// recommended action: do a null check before calling .equals on something, do negative checks on quantity and unitPrice
+
 package works.weave.socks.orders.entities;
 
 import org.springframework.data.annotation.Id;
