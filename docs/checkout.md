@@ -40,12 +40,12 @@ Here is the code:
 
 
 # Specifics:
-- Adress and credit card validation
-- logging of errors
-- null safety
-- timeouts
-- implement retrys and circuit breaker
-- unit tests
+-  Unit test coverage could be improved
+-  **Adress, Name and Credit Card validation**
+-  **Check that timeouts are configured correctly**
+-  **log the errors that may occur**
+-  **implement retry and circuit breaker patterns for network and DS ops**
+-  more, for each file in the [repo](https://github.com/finia2NA/sockshop-orders)
 
 ## Caveats:
 As GPT4 says

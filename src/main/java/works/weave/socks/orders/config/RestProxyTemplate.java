@@ -1,3 +1,5 @@
+// FIXME: make wrong port number a fatal error
+
 // To increase the resilience of the Spring Boot app and better handle application faults in the given code, here are a few improvements you can make:
 
 // 1. Handle NumberFormatException: Currently, if the proxy port number cannot be parsed, an error is logged but no further action is taken. You can enhance the error handling by throwing an exception or taking appropriate action based on your application's requirements.
@@ -86,11 +88,12 @@ import java.net.Proxy;
 public final class RestProxyTemplate {
     private final Logger logger = LoggerFactory.getLogger(getClass());
 
-    @Autowired RestTemplate restTemplate;
+    @Autowired
+    RestTemplate restTemplate;
 
     @Bean
     public RestTemplate restTemplate() {
-      return new RestTemplate();
+        return new RestTemplate();
     }
 
     @Value("${proxy.host:}")
@@ -108,6 +111,7 @@ public final class RestProxyTemplate {
         try {
             portNr = Integer.parseInt(port);
         } catch (NumberFormatException e) {
+            // FIXME: this should honestly probably be a fatal error
             logger.error("Unable to parse the proxy port number");
         }
         SimpleClientHttpRequestFactory factory = new SimpleClientHttpRequestFactory();

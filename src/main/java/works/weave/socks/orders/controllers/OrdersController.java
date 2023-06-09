@@ -17,7 +17,7 @@ In the given code, the following changes could be considered to enhance resilien
 
 Please note that how you apply these suggestions depends on your specific use-case, requirements, and the overall design of your application.
 
-To my question of why Non-blocking calls might be advantageous, GPT4 responded:
+**To my question of why Non-blocking calls might be advantageous, GPT4 responded:**
 Yes, you are correct. Spring's servlet-based architecture can handle multiple requests concurrently on separate threads. Each HTTP request is handled in a separate thread, so blocking within a single request's processing does not block the handling of other requests.
 
 However, within a single request's processing, using `Future.get()` is a blocking call which stops the execution of the thread until the result is available or a timeout occurs. This may not be optimal, especially when dealing with multiple external service calls within the same request processing as it's done in the `newOrder` method. 
@@ -107,6 +107,7 @@ public class OrdersController {
                     cardFuture.get(timeout, TimeUnit.SECONDS).getContent(),
                     customerFuture.get(timeout, TimeUnit.SECONDS).getContent(),
                     amount);
+            // TODO: here, retry mechanism can be implemented
             LOG.info("Sending payment request: " + paymentRequest);
             Future<PaymentResponse> paymentFuture = asyncGetService.postResource(
                     config.getPaymentUri(),
@@ -127,6 +128,7 @@ public class OrdersController {
             Future<Shipment> shipmentFuture = asyncGetService.postResource(config.getShippingUri(),
                     new Shipment(customerId), new ParameterizedTypeReference<Shipment>() {
                     });
+            // TODO: here, retry and timeout mechanism can be implemented
 
             CustomerOrder order = new CustomerOrder(
                     null,
@@ -144,6 +146,7 @@ public class OrdersController {
             LOG.debug("Saved order: " + savedOrder);
 
             return savedOrder;
+            // TODO: retries
         } catch (TimeoutException e) {
             throw new IllegalStateException("Unable to create order due to timeout from one of the services.", e);
         } catch (InterruptedException | IOException | ExecutionException e) {
@@ -160,7 +163,7 @@ public class OrdersController {
         return matcher.group(0);
     }
 
-    // TODO: Add link to shipping
+    // Pre-existing TODO: Add link to shipping
     // @RequestMapping(method = RequestMethod.GET, value = "/orders")
     // public @ResponseBody
     // ResponseEntity<?> getOrders() {
